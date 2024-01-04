@@ -1,6 +1,7 @@
 const Article = require("../models/Article");
 const User = require("../models/User");
 const Comment = require("../models/Comment");
+const { v4: uuidv4 } = require("uuid");
 const asyncHandler = require("express-async-handler");
 
 const addCommentsToArticle = asyncHandler(async (req, res) => {
@@ -30,6 +31,7 @@ const addCommentsToArticle = asyncHandler(async (req, res) => {
     body: body,
     author: commenter._id,
     article: article._id,
+    commentId: uuidv4(),
   });
 
   await article.addComment(newComment._id);

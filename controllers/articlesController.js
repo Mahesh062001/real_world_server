@@ -7,7 +7,11 @@ const createArticle = asyncHandler(async (req, res) => {
   const id = req.userId;
 
   const author = await User.findById(id).exec();
-  const { title, description, body, tagList } = JSON.parse(req.body.article);
+  const articleData =
+    typeof req.body.article === "object"
+      ? req.body.article
+      : JSON.parse(req.body.article);
+  const { title, description, body, tagList } = articleData;
   const imageUrl = req.file.path;
 
   console.log(imageUrl);
